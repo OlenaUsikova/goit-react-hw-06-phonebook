@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { ContactList } from './contactsList/ContactsList';
 import { AddContactForm } from './addForm/AddContactsForm';
 import { FindContactForm } from './findContact/FindContactForm';
@@ -11,20 +10,7 @@ export const App = () => {
   const contacts = useSelector(selectUsers);
   const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
-  // const [contacts, setContacts] = useState(() => {
-  //   const dataConst = localStorage.getItem('contacts');
-  //   if (dataConst) {
-  //     return JSON.parse(dataConst);
-  //   }
-  //   return [];
-  // });
-
-  // const [filter, setFilter] = useState('');
-
-  // useEffect(() => {
-  //   localStorage.setItem('contacts', JSON.stringify(contacts));
-  // }, [contacts]);
-
+  
   const addNewContact = data => {
     if (contacts.find(item => item.name === data.name)) {
       return alert(`Name ${data.name} is already in contacts!`);
@@ -33,7 +19,6 @@ export const App = () => {
       id: nanoid(),
       ...data,
     };
-    // console.log(newContact);
     dispatch(addContacts(newContact));
   };
 
