@@ -3,23 +3,29 @@ import { ContactList } from './contactsList/ContactsList';
 import { AddContactForm } from './addForm/AddContactsForm';
 import { FindContactForm } from './findContact/FindContactForm';
 import { nanoid } from 'nanoid';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectFilter, selectUsers } from 'Redux/selectors';
+import { addContacts, setFilter } from 'Redux/contactsSlice';
 
 export const App = () => {
-  const [contacts, setContacts] = useState(() => {
-    const dataConst = localStorage.getItem('contacts');
-    if (dataConst) {
-      return JSON.parse(dataConst);
-    }
-    return [];
-  });
+  const contacts = useSelector(selectUsers);
+  const filter = useSelector(selectFilter);
+  const dispatch = useDispatch();
+  // const [contacts, setContacts] = useState(() => {
+  //   const dataConst = localStorage.getItem('contacts');
+  //   if (dataConst) {
+  //     return JSON.parse(dataConst);
+  //   }
+  //   return [];
+  // });
 
-  const [filter, setFilter] = useState('');
+  // const [filter, setFilter] = useState('');
 
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  // useEffect(() => {
+  //   localStorage.setItem('contacts', JSON.stringify(contacts));
+  // }, [contacts]);
 
-  const addContact = data => {
+  const addNewContact = data => {
     if (contacts.find(item => item.name === data.name)) {
       return alert(`Name ${data.name} is already in contacts!`);
     }
@@ -27,16 +33,15 @@ export const App = () => {
       id: nanoid(),
       ...data,
     };
-    setContacts(prevState => [...prevState, newContact]);
+    // console.log(newContact);
+    dispatch(addContacts(newContact));
   };
 
   const deleteContact = id => {
-    setContacts(prevState => {
-      return prevState.filter(contact => contact.id !== id);
-    });
+    dispatch(deleteContact(id));
   };
   const onChangeFind = ev => {
-    setFilter(ev.currentTarget.value.toLowerCase());
+    dispatch(setFilter(ev.currentTarget.value.toLowerCase()));
   };
   const filteredContacts = () => {
     if (filter) {
@@ -59,7 +64,7 @@ export const App = () => {
       }}
     >
       <h1>Phonebook</h1>
-      <AddContactForm addContact={addContact} />
+      <AddContactForm addContact={addNewContact} />
       <h2>Contacts</h2>
       <FindContactForm onChangeFind={onChangeFind} />
       <ContactList

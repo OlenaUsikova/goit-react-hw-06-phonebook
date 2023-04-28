@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types'
 import {Button} from '../addForm/AddForm.styled'
+import { deleteContact } from 'Redux/contactsSlice';
+import { useDispatch } from 'react-redux';
+
 export const Contact = ({contact:{name, number, id}, onDeleteContact}) => {
+    const dispatch = useDispatch()
        return (
         <div style={{ margin: "0 auto",
         display: 'flex',
@@ -9,7 +13,7 @@ export const Contact = ({contact:{name, number, id}, onDeleteContact}) => {
          }}>
         <p>{name}:</p>
         <p>{number}</p>
-        <Button type="button" onClick={() => onDeleteContact(id)}>Delete</Button>
+        <Button type="button" onClick={() => {dispatch(deleteContact(id))}}>Delete</Button>
         </div>
     )
 };
