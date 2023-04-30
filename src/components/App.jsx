@@ -22,9 +22,6 @@ export const App = () => {
     dispatch(addContacts(newContact));
   };
 
-  const deleteContact = id => {
-    dispatch(deleteContact(id));
-  };
   const onChangeFind = ev => {
     dispatch(setFilter(ev.currentTarget.value.toLowerCase()));
   };
@@ -34,8 +31,7 @@ export const App = () => {
         contact.name.toLowerCase().includes(filter)
       );
     } else {
-      return contacts;
-    }
+      return contacts;    }
   };
   return (
     <div
@@ -54,8 +50,7 @@ export const App = () => {
       <FindContactForm onChangeFind={onChangeFind} />
       <ContactList
         contacts={filteredContacts()}
-        onDeleteContact={deleteContact}
-      />
+       />
     </div>
   );
 };

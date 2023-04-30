@@ -3,7 +3,7 @@ import {Button} from '../addForm/AddForm.styled'
 import { deleteContact } from 'Redux/contactsSlice';
 import { useDispatch } from 'react-redux';
 
-export const Contact = ({contact:{name, number, id}, onDeleteContact}) => {
+export const Contact = ({contact:{name, number, id}}) => {
     const dispatch = useDispatch()
        return (
         <div style={{ margin: "0 auto",
