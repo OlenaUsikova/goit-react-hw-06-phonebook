@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import {Contact} from '../contact/Contact'
 
-export const ContactList = ({contacts,}) => {
+export const ContactList = ({contacts}) => {
     return ( <ul>
          {contacts.map((contact) => {
              return ( 
@@ -16,5 +16,5 @@ export const ContactList = ({contacts,}) => {
 
  ContactList.propTypes = {
     contacts: PropTypes.arrayOf(
-        PropTypes.object),
-    onDeleteContact: PropTypes.func}    
+        PropTypes.object)
+    }    
